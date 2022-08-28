@@ -1,5 +1,0 @@
-[
-  { "name": "home", "status": false },
-  { "name": "signin", "status": true },
-  { "name": "signup", "status": true }
-]

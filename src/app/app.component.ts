@@ -1,25 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { Feature } from './feature';
-import { FeatureFlagsService } from './featureflags.service';
+import { Component, OnInit } from "@angular/core";
 
+import { UserService } from "./core";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: "app-root",
+  templateUrl: "./app.component.html",
 })
-export class AppComponent {
-  featureFlags: Feature[] = [];
-  constructor(private service: FeatureFlagsService) {}
+export class AppComponent implements OnInit {
+  constructor(private userService: UserService) {}
+
   ngOnInit() {
-    this.service.getFeatureflags().subscribe((result: Feature[]) => {
-      this.featureFlags = result;
-    });
-  }
-  handleChange() {
-    console.log('changed : ');
-    console.log(this.featureFlags);
-    this.service.setFeatureFlags(this.featureFlags);
+    this.userService.populate();
   }
 }

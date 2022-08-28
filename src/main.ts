@@ -1,16 +1,15 @@
-import './polyfills';
-
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
 
-platformBrowserDynamic().bootstrapModule(AppModule).then(ref => {
-  // Ensure Angular destroys itself on hot reloads.
-  if (window['ngRef']) {
-    window['ngRef'].destroy();
-  }
-  window['ngRef'] = ref;
+if (environment.production) {
+  enableProdMode();
+}
 
-  // Otherwise, log the boot error
-}).catch(err => console.error(err));
+const bootstrapPromise =  platformBrowserDynamic().bootstrapModule(AppModule);
+
+// Logging bootstrap information
+bootstrapPromise.then(success => console.log(`Bootstrap success`))
+  .catch(err => console.error(err));
